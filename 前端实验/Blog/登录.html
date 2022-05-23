@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script>
+        window.onload = function () {
+            createCode()
+        }
+        var code;
+        function createCode() {
+            code = "";
+            var codeLength = 4; //验证码的长度
+            var checkCode = document.getElementById("code");
+            var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数
+            for (var i = 0; i < codeLength; i++) { //循环操作
+                var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）
+                code += random[index]; //根据索引取得随机数加到code上
+            }
+            checkCode.value = code; //把code值赋给验证码
+        }
+        var flag1=false;
+        var flag2=false;
+        function validateLogin() {
+            var sUserName = document.getElementById("账号").value;
+            var sPassword = document.getElementById("密码").value;
+            var inputCode = document.getElementById("text_code").value;
+            if ((sUserName.length <= 0) || (sUserName == "")) {
+                alert("请输入用户名!");
+                return false;
+            }
+
+            if ((sPassword.length <= 0) || (sPassword == "")) {
+                alert("请输入密码!");
+                return false;
+            }
+            if ((inputCode.length <= 0) || (sPassword == "")){
+                alert("请输入验证码!");
+                return false;
+            }
+            if(code==inputCode&&flag1&&flag2)
+            {
+                window.open('主界面.html');
+            }
+            else
+            {
+                alert("验证码或账号密码输入有误!");
+                return false;
+            }
+        }
+        function CHECK_ACCOUNT() {
+            if (document.getElementById("账号").value.length != 8) {
+               flag1=false;
+                document.getElementById("tex").innerHTML="输入有误";
+                document.getElementById("tex").style.color="red";
+
+                document.getElementById("fname").focus();//鼠标回到框中
+                return false;
+            }
+            else
+            {
+                flag1=true;
+                document.getElementById("tex").innerHTML="输入正确";
+                document.getElementById("tex").style.color="green";
+                return true;
+            }
+        }
+        function CHECK_PASSWORD()
+        {
+            if (document.getElementById("密码").value.length != 8)
+            {
+                flag2=false;
+            document.getElementById("tex2").innerHTML="输入有误";
+            document.getElementById("tex2").style.color="red";
+            return false;
+            }
+            else
+            {
+                flag2=true;
+                document.getElementById("tex2").innerHTML="输入正确";
+                document.getElementById("tex2").style.color="green";
+                return true;
+            }
+        }
+    </script>
+</head>
+<body background="../../resource/海滩.png" style="background-repeat:no-repeat;background-size:cover;background-attachment: fixed">
+<!--<script>-->
+<!--    function click_login() {-->
+<!--        var v1=document.getElementById("账号").value;-->
+<!--        var v2=document.getElementById("密码").value;-->
+
+<!--        if(v1=="12345"&&v2=="12345")-->
+<!--        {-->
+<!--            window.open('主界面.html')-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+
+<center>
+<table border="0" align="center" id="table">
+    <tr>
+        <h1>登录</h1>
+    </tr>
+    <tr>
+        <td>
+            <center><p>账号密码都是8位即可</p></center>
+        <center>  <p>账号：<input type="text" name="account" id="账号" oninput="CHECK_ACCOUNT()" autofocus><span id="tex"></span></p>
+            <p>密码：<input type="text" name="password" id="密码" onchange="CHECK_PASSWORD()"><span id="tex2"></span></p>
+            <div style="margin-bottom: 30px;margin-left: 60px">
+                <label for="text_code">验证码:</label>
+                <input type="text" size="" name="text_code" id="text_code"/>
+                <input type="button" id="code" onclick="createCode()" name="">
+            </div>
+            <input type="submit" class="button" onclick="validateLogin()"   value="登录">
+            <input type="submit" class="button" onclick='window.open("注册.html")'value="注册">
+        </center>
+        </td>
+    </tr>
+
+
+
+</table>
+</center>
+
+</body>
+<style>
+    .button {
+        background-color: blue;
+        color: aliceblue;
+        border-style: hidden;
+        width: 100px;
+        height: 31px;
+        font-size: 16px;
+    }
+</style>
+</html>

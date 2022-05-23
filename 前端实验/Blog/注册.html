@@ -1,0 +1,122 @@
+<html>
+<head>
+    <title>注册</title>
+    <script>
+        window.onload = function () {
+            createCode()
+        }
+        var code;
+        var flag1=false;
+        var flag2=false;
+        function createCode() {
+            code = "";
+            var codeLength = 4; //验证码的长度
+            var checkCode = document.getElementById("code");
+            var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数
+            for (var i = 0; i < codeLength; i++) { //循环操作
+                var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）
+                code += random[index]; //根据索引取得随机数加到code上
+            }
+            checkCode.value = code; //把code值赋给验证码
+        }
+        function validateLogin() {
+            var sUserName = document.getElementById("账号").value;
+            var sPassword = document.getElementById("密码").value;
+            if ((sUserName.length <= 0) || (sUserName == "")) {
+                alert("请输入用户名!");
+                return false;
+            }
+            if ((sPassword.length <= 0) || (sPassword == "")) {
+                alert("请输入密码!");
+                return false;
+            }
+
+            if(flag1&&flag2)
+            {
+                window.open('登录.html');
+            }
+            else
+            {
+                alert("账号密码输入有误!");
+                return false;
+            }
+        }
+        function CHECK_ACCOUNT() {
+            if (document.getElementById("账号").value.length != 8) {
+                flag1=false;
+                document.getElementById("tex").innerHTML="输入有误";
+                document.getElementById("tex").style.color="red";
+
+                document.getElementById("fname").focus();//鼠标回到框中
+                return false;
+            }
+            else
+            {
+                flag1=true;
+                document.getElementById("tex").innerHTML="输入正确";
+                document.getElementById("tex").style.color="green";
+                return true;
+            }
+        }
+        function CHECK_PASSWORD()
+        {
+            if (document.getElementById("密码").value.length != 8)
+            {
+                flag2=false;
+                document.getElementById("tex2").innerHTML="输入有误";
+                document.getElementById("tex2").style.color="red";
+                return false;
+            }
+            else
+            {
+                flag2=true;
+                document.getElementById("tex2").innerHTML="输入正确";
+                document.getElementById("tex2").style.color="green";
+                return true;
+            }
+        }
+
+    </script>
+    <style>
+        video{
+
+            position: fixed;//窗口滚动也不移动
+        min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -9999;//防止重叠
+        }
+    </style>
+</head>
+<body background="../../resource/太阳.png" style="background-repeat:no-repeat;background-size:100%;background-attachment: fixed">
+        
+<!--        <video id="v1" autoplay muted loop style="width: 100%">-->
+
+<!--            <source  src="../../resource/地球.mp4">-->
+<!--        </video>-->
+
+    <h1>注册</h1>
+        <center><p>账号密码都是8位即可</p></center>
+        <center>  <p> 用户名: <input id="账号" type="text" oninput="CHECK_ACCOUNT()" autofocus required><span id="tex"></span></p></center>
+        <center> <p>用户密码: <input id="密码" type="text" oninput="CHECK_PASSWORD()"><span id="tex2"></span></p>
+            <input type="submit" class="button" onclick='validateLogin()' value="提交"></center>
+
+</body>
+<style>
+    .button {
+        background-color: blue;
+        color: aliceblue;
+        border-style: hidden;
+        width: 100px;
+        height: 31px;
+        font-size: 16px;
+    }
+    h1 {
+        text-align: center;;
+        color: black;
+    }
+</style>
+</html>
+
